@@ -1,0 +1,570 @@
+:root {
+    --bg-color: #0a0b10;
+    --card-bg: #161821;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0b8;
+    --accent-color: #7c4dff;
+    --gradient-1: linear-gradient(135deg, #7c4dff 0%, #448aff 100%);
+    --gradient-text: linear-gradient(90deg, #b388ff, #448aff);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Header & Nav */
+header {
+    padding: 1.5rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(10, 11, 16, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+}
+
+/* Buttons */
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.primary-btn {
+    background: var(--gradient-1);
+    color: white;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(124, 77, 255, 0.3);
+}
+
+.secondary-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Hero Section */
+#hero {
+    padding: 10rem 0 5rem;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+}
+
+.gradient-text {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Product Grid */
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 5rem;
+}
+
+.product-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(124, 77, 255, 0.3);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.product-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.product-card .price-list {
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.price-item:last-child {
+    border-bottom: none;
+}
+
+/* Chat System */
+.chat-bubble {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    transition: var(--transition);
+}
+
+.chat-bubble:hover {
+    transform: scale(1.1);
+}
+
+.chat-window {
+    position: fixed;
+    bottom: 6rem;
+    right: 2rem;
+    width: 350px;
+    height: 450px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-header {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.chat-input-area {
+    padding: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chat-input-area input {
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    color: white;
+}
+
+/* Message Styles */
+.message {
+    padding: 0.8rem 1.2rem;
+    border-radius: 18px;
+    margin-bottom: 1rem;
+    max-width: 80%;
+    font-size: 0.95rem;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.message p {
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.message small {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.5;
+    margin-top: 0.4rem;
+    text-align: right;
+}
+
+.user {
+    background: #2a2d3e;
+    color: #e0e0f0;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.admin {
+    background: var(--gradient-1);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+    margin-left: auto;
+}
+
+.chat-input-area {
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.chat-input-area input {
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.9rem 1.2rem;
+    border-radius: 12px;
+    color: white;
+    outline: none;
+    transition: var(--transition);
+}
+
+.chat-input-area input:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent-color);
+}
+
+#send-btn {
+    background: var(--gradient-1);
+    border: none;
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+#send-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(124, 77, 255, 0.4);
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: var(--card-bg);
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    border-radius: 25px;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: modalSlideUp 0.4s ease-out;
+}
+
+/* Custom scrollbar for modal */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 10px;
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 1.5rem 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close-modal:hover {
+    color: white;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.qr-section {
+    text-align: center;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 15px;
+}
+
+.qr-image {
+    width: 200px;
+    height: 200px;
+}
+
+.qr-instruction {
+    color: #333;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 12px;
+    color: white;
+    outline: none;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.form-group select {
+    width: 100%;
+    background: #1e2130;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 12px;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: listbox;
+    /* Ensure dropdown arrow is visible */
+    appearance: listbox;
+}
+
+.form-group select option {
+    background: #161821;
+    color: white;
+    padding: 10px;
+}
+
+.form-help {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.form-help a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.form-help {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.w-100 {
+    width: 100%;
+}
+
+/* Enhanced Chat Button */
+.chat-bubble {
+    background: var(--gradient-1);
+    box-shadow: 0 10px 30px rgba(124, 77, 255, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-bubble i {
+    font-size: 1.8rem;
+    color: white;
+    font-weight: 900;
+}
+
+.chat-header h3 {
+    font-weight: 700;
+    color: white;
+}
+
+#send-btn i {
+    font-size: 1.2rem;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.social-links {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.social-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://devsandesh.xyz/</loc>
+  </url>
+
+  <url>
+    <loc>https://devsandesh.xyz/about.html</loc>
+  </url>
+
+  <url>
+    <loc>https://devsandesh.xyz/projects.html</loc>
+  </url>
+
+  <url>
+    <loc>https://devsandesh.xyz/codes.html</loc>
+  </url>
+
+  <url>
+    <loc>https://devsandesh.xyz/actions.html</loc>
+  </url>
+
+  <url>
+    <loc>https://devsandesh.xyz/reviews.html</loc>
+  </url>
+
+  <url>
+    <loc>https://devsandesh.xyz/contact.html</loc>
+  </url>
+
+  <url>
+    <loc>https://devsandesh.xyz/login.html</loc>
+  </url>
+
+</urlset>

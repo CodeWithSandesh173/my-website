@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Premium Digital Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-width: 280px;
+            --admin-bg: #0d0f17;
+            --admin-card: #1a1d29;
+            --admin-accent: #7c4dff;
+        }
+
+        body.dark-theme {
+            background: var(--admin-bg);
+        }
+
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar - Glassmorphism */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: rgba(17, 19, 25, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 3.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.8rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1.1rem 1.4rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 16px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .sidebar-nav a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .sidebar-nav a.active {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 10px 25px rgba(124, 77, 255, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            margin-left: var(--sidebar-width);
+            padding: 3rem;
+        }
+
+        .dashboard-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        /* Stats Cards - Premium Look */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-card {
+            background: var(--admin-card);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(124, 77, 255, 0.2);
+        }
+
+        .stat-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        /* Order Cards - Refined */
+        .product-card {
+            background: var(--admin-card);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+
+        .status-completed {
+            background: rgba(0, 230, 118, 0.1);
+            color: #00e676;
+        }
+
+        /* Chat Redesign */
+        .chat-list {
+            background: var(--admin-card);
+            border-radius: 24px;
+            padding: 1.5rem;
+            height: calc(100vh - 300px);
+            overflow-y: auto;
+        }
+
+        .chat-item {
+            padding: 1.2rem;
+            border-radius: 16px;
+            margin-bottom: 0.8rem;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .chat-item.active {
+            background: rgba(124, 77, 255, 0.08);
+            border-color: rgba(124, 77, 255, 0.3);
+        }
+
+        .admin-chat-window {
+            background: var(--admin-card);
+            border-radius: 24px;
+            height: calc(100vh - 300px);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-input-area {
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Auth Guard Overlay */
+        #admin-auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0b10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        @media (max-width: 1200px) {
+            :root {
+                --sidebar-width: 80px;
+            }
+
+            .sidebar-nav span,
+            .sidebar-logo span,
+            .logout-btn span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+
+            .sidebar {
+                padding: 2rem 1rem;
+                align-items: center;
+            }
+
+            .sidebar-logo {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-theme">
+    <!-- Auth Guard Overlay -->
+    <div id="admin-auth-overlay">
+        <div class="loader"></div>
+        <p style="margin-top: 1rem;">Verifying Admin Access...</p>
+        <div id="overlay-error" style="display: none; text-align: center; margin-top: 2rem;">
+            <p id="error-msg" style="color: #ff4444; margin-bottom: 1rem;"></p>
+            <button onclick="auth.signInWithPopup(provider)" class="btn primary-btn">Retry Admin Login</button>
+            <a href="index.html" class="btn secondary-btn" style="margin-top: 1rem; display: block;">Back to Store</a>
+        </div>
+    </div>
+
+    <div class="admin-layout" id="admin-dashboard-root" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo"><i class="fas fa-shield-halved" style="color: var(--admin-accent);"></i>
+                <span>Admin</span>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="#" class="active" id="nav-orders"><i class="fas fa-shopping-cart"></i>
+                        <span>Orders</span></a></li>
+                <li><a href="#" id="nav-chats"><i class="fas fa-comments"></i> <span>Chats</span></a></li>
+                <li><a href="#" id="nav-notifications"><i class="fas fa-bell"></i> <span>Notifications</span></a></li>
+                <li><a href="index.html"><i class="fas fa-store"></i> <span>Store</span></a></li>
+            </ul>
+            <button id="logout-btn" class="btn secondary-btn" style="width: 100%; margin-top: 2rem;">
+                <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1 id="view-title">Orders Dashboard</h1>
+                <div class="admin-profile" id="admin-email-display" style="font-size: 0.9rem; opacity: 0.7;"></div>
+            </header>
+
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(124, 77, 255, 0.1); color: #7c4dff;">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div>
+                        <p style="opacity: 0.6; font-size: 0.9rem;">Total Orders</p>
+                        <h3 id="stat-total-orders">0</h3>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(255, 215, 0, 0.1); color: #ffd700;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <p style="opacity: 0.6; font-size: 0.9rem;">Pending</p>
+                        <h3 id="stat-pending-orders">0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders View -->
+            <section id="orders-view">
+                <div id="orders-list" class="product-grid">
+                    <!-- Orders will load in grid format -->
+                </div>
+            </section>
+
+            <!-- Chats View -->
+            <section id="chats-view" style="display: none;">
+                <div class="dashboard-grid">
+                    <div id="chat-list" class="chat-list">
+                        <!-- User list -->
+                    </div>
+                    <div class="chat-management-area">
+                        <div id="active-chat-container" class="admin-chat-window" style="display: none;">
+                            <div class="chat-header">
+                                <h3 id="active-chat-user">Select a User</h3>
+                            </div>
+                            <div id="admin-chat-messages" class="chat-messages"
+                                style="height: 400px; overflow-y: auto; padding: 1.5rem;"></div>
+                            <div class="chat-input-area">
+                                <input type="text" id="admin-chat-input" placeholder="Type a reply...">
+                                <button id="admin-send-btn" class="btn primary-btn"><i
+                                        class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                        <div id="no-chat-selected" style="text-align: center; padding: 5rem; opacity: 0.3;">
+                            <i class="fas fa-comments" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                            <p>Select a user from the list to start chatting</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notifications View -->
+            <section id="notifications-view" style="display: none;">
+                <div class="product-card" style="max-width: 600px; margin: 0 auto;">
+                    <h2 style="margin-bottom: 1.5rem;"><i class="fas fa-paper-plane"></i> Broadcast Notification</h2>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; opacity: 0.7;">Title</label>
+                            <input type="text" id="notif-title" placeholder="e.g. New Product Alert!" style="width: 100%;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; opacity: 0.7;">Message</label>
+                            <textarea id="notif-message" placeholder="What would you like to say to your users?" style="width: 100%; height: 100px;"></textarea>
+                        </div>
+                        <button onclick="sendBroadcastNotification()" class="btn primary-btn" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-broadcast-tower"></i> Send Broadcast
+                        </button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <h3>Recent Notifications</h3>
+                    <div id="notif-history" class="product-grid" style="margin-top: 1.5rem;">
+                        <!-- History will load here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

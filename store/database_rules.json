@@ -1,0 +1,27 @@
+{
+  "rules": {
+    "orders": {
+      ".read": "auth != null && (auth.token.email === 'bhandaryshandesh2@gmail.com' || data.child('userId').val() === auth.uid)",
+      "$orderId": {
+        ".write": "auth != null && (!data.exists() || auth.token.email === 'bhandaryshandesh2@gmail.com')",
+        ".validate": "newData.hasChildren(['product', 'details', 'userId', 'status', 'timestamp']) && (newData.child('userId').val() === auth.uid || auth.token.email === 'bhandaryshandesh2@gmail.com')"
+      }
+    },
+    "chats": {
+      "$chatId": {
+        ".read": "auth != null && (auth.uid === $chatId || auth.token.email === 'bhandaryshandesh2@gmail.com')",
+        ".write": "auth != null && (auth.uid === $chatId || auth.token.email === 'bhandaryshandesh2@gmail.com')"
+      }
+    },
+    "notifications": {
+      ".read": "true",
+      ".write": "auth != null && auth.token.email === 'bhandaryshandesh2@gmail.com'"
+    },
+    "users": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.token.email === 'bhandaryshandesh2@gmail.com')",
+        ".write": "auth != null && (auth.uid === $uid || auth.token.email === 'bhandaryshandesh2@gmail.com')"
+      }
+    }
+  }
+}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Premium Digital Store - Get your Pubg UC, Free Fire Diamonds, and Giftcards instantly.">
+    <title>Dev Sandesh - Premium Digital Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="dark-theme">
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <span class="gradient-text">Dev Store</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#products">Products</a></li>
+                <li id="admin-link" style="display: none;"><a href="admin.html">Admin</a></li>
+                <li><button id="auth-btn" class="btn primary-btn">Login with Google</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="container">
+            <div class="hero-content">
+                <h1 class="fade-in">Elevate Your <span class="gradient-text">Gaming Experience</span></h1>
+                <p class="fade-in-delay">Instant delivery for UC, Diamonds, and Gift Cards. Secure, Fast, and Reliable.
+                Select package take screenshot and message at devstorenepal at Instagram because server wont work sometime so you order might get displaced.
+                </p>
+                <a href="#products" class="btn secondary-btn fade-in-delay">Shop Now</a>
+            </div>
+        </section>
+
+        <section id="products" class="container">
+            <h2 class="section-title">Exclusive Products</h2>
+            <div id="product-grid" class="product-grid">
+                <!-- Products will be loaded here dynamically -->
+                <div class="loader"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Dev Store</h3>
+                <p>Created with love by Sandesh Bhandari</p>
+                <div class="social-links">
+                    <a href="instagram.com/devstorenepal" id="instagram-link"><i class="fab fa-instagram"></i>
+                        Instagram</a>
+                    <a href="mailto:bhandaryshandesh2@gmail.com"><i class="far fa-envelope"></i> Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Bubble -->
+    <div id="chat-bubble" class="chat-bubble">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <!-- Chat Window -->
+    <div id="chat-window" class="chat-window" style="display: none;">
+        <div class="chat-header">
+            <h3>Support Chat</h3>
+            <button id="close-chat">&times;</button>
+        </div>
+        <div id="chat-messages" class="chat-messages"></div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Type a message...">
+            <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Complete Your Payment</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="qr-section">
+                    <img src="images/qr.png" alt="Payment QR" class="qr-image">
+                    <p class="qr-instruction">Scan this QR code to pay using any bank or wallet.</p>
+                </div>
+                <form id="payment-form">
+                    <input type="hidden" id="selected-product">
+                    <div class="form-group">
+                        <label for="package-selection">Select Amount / Package</label>
+                        <select id="package-selection" required>
+                            <option value="" disabled selected>Select your package</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount-paid">Total Amount Paid (Rs.)</label>
+                        <input type="number" id="amount-paid" placeholder="Enter amount paid" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="game-id">Game ID / Account Details</label>
+                        <input type="text" id="game-id" placeholder="Enter your Game ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bank-name">Bank / Wallet Name</label>
+                        <input type="text" id="bank-name" placeholder="e.g. eSewa, Khalti, Global IME" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transaction-id">Transaction Number</label>
+                        <input type="text" id="transaction-id" placeholder="Enter transaction number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="payment-screenshot">Payment Screenshot (Link)</label>
+                        <input type="text" id="payment-screenshot" placeholder="Paste link here" required>
+                        <small class="form-help">Upload screenshot to <a href="https://imgbb.com/"
+                                target="_blank">imgbb.com</a> and paste the link.</small>
+                    </div>
+                    <button type="submit" class="btn primary-btn w-100">Confirm Payment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
