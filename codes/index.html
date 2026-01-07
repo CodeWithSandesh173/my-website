@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Source Code Snippets & Scripts by Sandesh">
+    <title>Codes | Sandesh</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- PrismJS for Syntax Highlighting (Tomorrow Night theme matches dark mode) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="/assets/images/profile.png">
+
+</head>
+
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                &lt;Sandesh/&gt;
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/store/" class="nav-link">Store</a></li>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/about/" class="nav-link">About</a></li>
+                <li><a href="/projects/" class="nav-link">Projects</a></li>
+                <li><a href="/codes/" class="nav-link active">Codes</a></li>
+                <li><a href="/reviews/" class="nav-link">Reviews</a></li>
+                <li><a href="/contact/" class="nav-link">Contact</a></li>
+                <li><a href="/login/" class="nav-link">Login</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="section" style="padding-top: 120px; padding-bottom: 40px;">
+        <div class="container text-center">
+            <h1 class="mb-md">Source <span class="gradient-text">Codes</span></h1>
+            <p class="text-secondary" style="max-width: 600px; margin: 0 auto;">
+                A collection of useful scripts, snippets, and mini-projects.
+                Feel free to use them in your own projects.
+            </p>
+
+            <!-- Admin Only Button -->
+            <div id="adminControls" class="mt-xl" style="display: none;">
+                <button class="btn btn-primary" onclick="openPostModal()">
+                    <i class="fas fa-plus"></i> New Post
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Codes List -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div id="codesGrid" class="codes-grid">
+                <!-- Codes will be loaded here -->
+                <div class="text-center text-secondary">
+                    <i class="fas fa-spinner fa-spin"></i> Loading codes...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Create/Edit Post Modal -->
+    <div class="code-editor-modal" id="postModal">
+        <div class="modal-content card card-glow">
+            <div class="flex justify-between items-center mb-lg" style="display:flex; justify-content:space-between;">
+                <h2 id="modalTitle">New Code Post</h2>
+                <button onclick="closePostModal()" class="btn-outline" style="border:none; padding:5px;"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <form id="postForm">
+                <input type="hidden" id="postId">
+
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" id="postTitle" class="form-input" required
+                        placeholder="e.g. Python WiFi Stealer">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Language</label>
+                    <select id="postLang" class="form-input">
+                        <option value="python">Python</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="c">C / C++</option>
+                        <option value="bash">Bash / Shell</option>
+                        <option value="json">JSON</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea id="postDesc" class="form-textarea" rows="3"
+                        placeholder="Brief explanation..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Source Code</label>
+                    <textarea id="postCode" class="form-textarea" rows="10" required style="font-family: monospace;"
+                        placeholder="Paste code here..."></textarea>
+                </div>
+
+                <div class="mt-lg text-right" style="text-align: right;">
+                    <button type="button" onclick="closePostModal()" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Publish
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    © 2026 Sandesh. All rights reserved.
+                </p>
+                <div class="footer-socials">
+                    <a href="https://github.com/CodeWithSandesh173" class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/sandesh-bhandari-57b46b275/" class="social-link"
+                        aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://x.com/sandesh123131" class="social-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/sandesh173_/" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+    <!-- PrismJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="/js/firebase-config.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/codes.js"></script>
+</body>
+
+</html>

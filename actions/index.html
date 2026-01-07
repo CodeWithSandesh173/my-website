@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Action | Sandesh</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="/assets/images/profile.png">
+
+    <style>
+        /* Override specifically for this page if needed, but reusing main classes is better */
+        .action-content {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="action-content">
+                <div class="auth-header">
+                    <div class="auth-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h2>Account Action</h2>
+                    <p id="message" class="text-secondary">Processing...</p>
+                </div>
+
+                <!-- Password reset inputs (hidden initially) -->
+                <div id="resetDiv" style="display:none; margin-top: 2rem;">
+                    <div class="form-group">
+                        <label class="form-label" style="text-align: left;">New Password</label>
+                        <input type="password" id="newPassword" class="form-input" placeholder="New Password" />
+                    </div>
+                    <button id="resetBtn" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                        <i class="fas fa-key"></i> Reset Password
+                    </button>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <a href="/login/" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK (Compat 10.7.1 to match login.html) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    
+    <!-- Reuse main.js for particles -->
+    <script src="/js/main.js"></script>
+
+    <script>
+        // --- Firebase configuration ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyBNLoJfgjGYPgWYPgSii5CnVscl7Al5vIo",
+            authDomain: "website-bd28f.firebaseapp.com",
+            databaseURL: "https://website-bd28f-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "website-bd28f",
+            storageBucket: "website-bd28f.firebasestorage.app",
+            messagingSenderId: "955197303266",
+            appId: "1:955197303266:web:9eafdc52ffa9f1727831bb",
+            measurementId: "G-4PGYCRWKLJ"
+        };
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        // --- Parse query parameters ---
+        const params = new URLSearchParams(window.location.search);
+        const mode = params.get('mode');
+        const oobCode = params.get('oobCode');
+
+        const messageEl = document.getElementById('message');
+        const resetDiv = document.getElementById('resetDiv');
+        const resetBtn = document.getElementById('resetBtn');
+
+        if (mode === 'verifyEmail') {
+            // Email verification flow
+            firebase.auth().applyActionCode(oobCode)
+                .then(() => {
+                    messageEl.innerHTML = '<span style="color: var(--accent-success)"><i class="fas fa-check-circle"></i> Email successfully verified!</span>';
+                })
+                .catch((error) => {
+                    messageEl.innerHTML = '<span style="color: var(--accent-error)"><i class="fas fa-times-circle"></i> Error: ' + error.message + '</span>';
+                });
+
+        } else if (mode === 'resetPassword') {
+            // Password reset flow
+            messageEl.innerText = "Enter your new password below:";
+            resetDiv.style.display = 'block';
+
+            resetBtn.addEventListener('click', () => {
+                const newPassword = document.getElementById('newPassword').value;
+                const originalHtml = resetBtn.innerHTML;
+
+                if (!newPassword) {
+                    messageEl.innerText = "Please enter a new password.";
+                    return;
+                }
+
+                resetBtn.disabled = true;
+                resetBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Resetting...';
+
+                firebase.auth().confirmPasswordReset(oobCode, newPassword)
+                    .then(() => {
+                        messageEl.innerHTML = '<span style="color: var(--accent-success)"><i class="fas fa-check-circle"></i> Password successfully reset!</span>';
+                        resetDiv.style.display = 'none';
+                    })
+                    .catch((error) => {
+                        messageEl.innerHTML = '<span style="color: var(--accent-error)"><i class="fas fa-times-circle"></i> Error: ' + error.message + '</span>';
+                        resetBtn.disabled = false;
+                        resetBtn.innerHTML = originalHtml;
+                    });
+            });
+
+        } else {
+            messageEl.innerText = "Invalid or expired link or unknown mode.";
+        }
+    </script>
+</body>
+</html>

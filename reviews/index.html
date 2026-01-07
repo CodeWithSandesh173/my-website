@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Read what people say about Sandesh and share your own thoughts">
+    <title>Reviews | Sandesh</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="/assets/images/profile.png">
+
+    <style>
+        .reviews-grid {
+            display: grid;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .review-form-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-2xl);
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .review-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            transition: all var(--transition-base);
+        }
+
+        .review-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .author-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .review-author h4 {
+            margin-bottom: 0.25rem;
+        }
+
+        .review-date {
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+        }
+
+        .review-rating {
+            display: flex;
+            gap: 0.25rem;
+            font-size: 1.1rem;
+        }
+
+        .review-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .review-controls {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .control-btn {
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-md);
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: var(--glass-bg);
+            color: var(--text-secondary);
+            font-family: inherit;
+            transition: all var(--transition-base);
+        }
+
+        .control-btn.delete:hover {
+            border-color: var(--accent-error);
+            color: var(--accent-error);
+        }
+
+        .control-btn.edit:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .rating-input {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating-input input {
+            display: none;
+        }
+
+        .rating-input label {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-tertiary);
+            transition: all var(--transition-base);
+        }
+
+        .rating-input label:hover,
+        .rating-input label:hover~label,
+        .rating-input input:checked~label {
+            color: #fbbf24;
+        }
+
+        .rating-input:hover label {
+            color: var(--text-tertiary);
+        }
+
+        .rating-input label:hover,
+        .rating-input label:hover~label {
+            color: #fbbf24;
+        }
+
+        /* Reverse order for proper hover effect */
+        .rating-input {
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        .rating-input input:checked+label,
+        .rating-input input:checked+label~label {
+            color: #fbbf24;
+        }
+
+        #loginPrompt {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        #noReviews {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .review-count {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-lg);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage">Action completed!</span>
+    </div>
+
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                &lt;Sandesh/&gt;
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/store/" class="nav-link">Store</a></li>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/about/" class="nav-link">About</a></li>
+                <li><a href="/projects/" class="nav-link">Projects</a></li>
+                <li><a href="/reviews/" class="nav-link active">Reviews</a></li>
+                <li><a href="/contact/" class="nav-link">Contact</a></li>
+                <li><a href="/login/" class="nav-link">Login</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="section" style="padding-top: 120px;">
+        <div class="container">
+            <div class="text-center mb-2xl">
+                <h1 class="mb-md">
+                    What People <span class="gradient-text">Say</span>
+                </h1>
+                <p class="text-secondary" style="max-width: 600px; margin: 0 auto;">
+                    Read reviews from people I've worked with and share your own experience!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Review Form Section -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="reviews-grid">
+                <!-- Review Form Card -->
+                <div class="review-form-card">
+                    <h3 class="mb-lg"><i class="fas fa-pen" style="color: var(--accent-primary);"></i> Share Your
+                        Thoughts</h3>
+
+                    <!-- Login Prompt (shown when not logged in) -->
+                    <div id="loginPrompt">
+                        <p class="text-secondary">Login to share your thoughts!</p>
+                        <a href="/login/" class="btn btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-sign-in-alt"></i> Login / Sign Up
+                        </a>
+                    </div>
+
+                    <!-- Review Form (shown when logged in) -->
+                    <div id="reviewFormSection" style="display: none;">
+                        <form id="reviewForm">
+                            <div class="form-group">
+                                <label class="form-label">Posting as</label>
+                                <div
+                                    style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                                    <div
+                                        style="width: 35px; height: 35px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem;">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <span id="reviewerNameDisplay" style="font-weight: 600;">User</span>
+                                    <span class="text-tertiary" style="font-size: 0.8rem; margin-left: auto;">
+                                        <i class="fas fa-lock"></i> From your account
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Rating</label>
+                                <div class="rating-input">
+                                    <input type="radio" name="rating" id="star5" value="5" checked>
+                                    <label for="star5"><i class="fas fa-star"></i></label>
+                                    <input type="radio" name="rating" id="star4" value="4">
+                                    <label for="star4"><i class="fas fa-star"></i></label>
+                                    <input type="radio" name="rating" id="star3" value="3">
+                                    <label for="star3"><i class="fas fa-star"></i></label>
+                                    <input type="radio" name="rating" id="star2" value="2">
+                                    <label for="star2"><i class="fas fa-star"></i></label>
+                                    <input type="radio" name="rating" id="star1" value="1">
+                                    <label for="star1"><i class="fas fa-star"></i></label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reviewText" class="form-label">Your Review</label>
+                                <textarea id="reviewText" class="form-textarea" placeholder="Share your experience..."
+                                    required minlength="10"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="submitReviewBtn" style="width: 100%;">
+                                <i class="fas fa-paper-plane"></i> Post Review
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews List Section -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="reviews-grid">
+                <div class="reviews-header">
+                    <h3><i class="fas fa-comments" style="color: var(--accent-secondary);"></i> All Reviews</h3>
+                </div>
+
+                <!-- No Reviews Message -->
+                <div id="noReviews">
+                    <i class="fas fa-comment-slash"
+                        style="font-size: 3rem; margin-bottom: 1rem; color: var(--text-tertiary);"></i>
+                    <p>No reviews yet. Be the first to share your thoughts!</p>
+                </div>
+
+                <!-- Reviews List -->
+                <div id="reviewsList">
+                    <!-- Reviews will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    © 2026 Sandesh. All rights reserved.
+                </p>
+                <div class="footer-socials">
+                    <a href="https://github.com/CodeWithSandesh173" class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/sandesh-bhandari-57b46b275/" class="social-link"
+                        aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://x.com/sandesh123131" class="social-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/sandesh173_/" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/firebase-config.js"></script>
+    <script src="/js/reviews.js"></script>
+    <script src="/js/page-editor.js"></script>
+</body>
+
+</html>

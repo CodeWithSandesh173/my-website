@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Explore Sandesh's portfolio of projects including YouTube Video Downloader, Chat Application, and more.">
+    <title>Projects | Sandesh</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="/assets/images/profile.png">
+
+</head>
+
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                &lt;Sandesh/&gt;
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/store/" class="nav-link">Store</a></li>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/about/" class="nav-link">About</a></li>
+                <li><a href="/projects/" class="nav-link active">Projects</a></li>
+                <li><a href="/reviews/" class="nav-link">Reviews</a></li>
+                <li><a href="/contact/" class="nav-link">Contact</a></li>
+                <li><a href="/login/" class="nav-link">Login</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="section" style="padding-top: 120px;">
+        <div class="container">
+            <div class="text-center mb-2xl">
+                <h1 class="mb-md">
+                    My Basic <span class="gradient-text">Projects</span>
+                </h1>
+                <p class="text-secondary" style="max-width: 600px; margin: 0 auto;">
+                    A collection of my work that showcases my skills and passion for development
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Buttons -->
+    <section class="section" style="padding-top: 0; padding-bottom: 2rem;">
+        <div class="container">
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <button class="btn btn-primary filter-btn active" data-filter="all">
+                    <i class="fas fa-th-large"></i>
+                    All
+                </button>
+                <button class="btn btn-secondary filter-btn" data-filter="python">
+                    <i class="fab fa-python"></i>
+                    Python
+                </button>
+                <button class="btn btn-secondary filter-btn" data-filter="web">
+                    <i class="fas fa-globe"></i>
+                    Web
+                </button>
+                <button class="btn btn-secondary filter-btn" data-filter="firebase">
+                    <i class="fas fa-fire"></i>
+                    Firebase
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="projects-grid" id="projectsGrid">
+
+                <!-- YouTube Video Downloader -->
+                <div class="card card-glow project-card reveal" data-category="python">
+                    <div
+                        style="height: 200px; background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(139, 92, 246, 0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <i class="fab fa-youtube" style="font-size: 5rem; color: #ff0000;"></i>
+                    </div>
+                    <div class="project-content" style="padding: 0;">
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                            <span class="badge badge-python"><i class="fab fa-python"></i>&nbsp; Python</span>
+                        </div>
+                        <h3 class="project-title">YouTube Video Downloader</h3>
+                        <p class="project-description">
+                            A powerful desktop application to download YouTube videos in various qualities and formats.
+                            Features include batch downloads, audio extraction, and a user-friendly GUI interface.
+                        </p>
+                        <div class="project-tags">
+                            <span class="badge">Python</span>
+                            <span class="badge">yt-dlp</span>
+                            
+                            <span class="badge">Text based</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/CodeWithSandesh173/Download_YouTue_Video" class="btn btn-outline" style="padding: 0.5rem 1rem;">
+                                <i class="fab fa-github"></i>
+                                Code
+                            </a>
+                     
+                                
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Application -->
+                <div class="card card-glow project-card reveal" data-category="web firebase">
+                    <div
+                        style="height: 200px; background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(236, 72, 153, 0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <i class="fas fa-comments" style="font-size: 5rem; color: var(--accent-secondary);"></i>
+                    </div>
+                    <div class="project-content" style="padding: 0;">
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                            <span class="badge badge-js"><i class="fab fa-js"></i>&nbsp; JavaScript</span>
+                            <span class="badge badge-firebase"><i class="fas fa-fire"></i>&nbsp; Firebase</span>
+                        </div>
+                        <h3 class="project-title">Real-time Chat Application</h3>
+                        <p class="project-description">
+                            A modern real-time chat application with instant messaging, user authentication,
+                            and a sleek UI. Built with Firebase for real-time data sync and user management.
+                        </p>
+                        <div class="project-tags">
+                            <span class="badge">JavaScript</span>
+                            <span class="badge">Firebase</span>
+                            <span class="badge">Real-time</span>
+                            <span class="badge">Auth</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/CodeWithSandesh173/Chat/" class="btn btn-outline" style="padding: 0.5rem 1rem;">
+                                <i class="fab fa-github"></i>
+                                Code
+                            </a>
+                            <a href="https://sandesh-chat.page.gd/" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                                <i class="fas fa-external-link-alt"></i>
+                                Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Website -->
+                <div class="card card-glow project-card reveal" data-category="web">
+                    <div
+                        style="height: 200px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <i class="fas fa-laptop-code" style="font-size: 5rem; color: var(--accent-primary);"></i>
+                    </div>
+                    <div class="project-content" style="padding: 0;">
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                            <span class="badge badge-html"><i class="fab fa-html5"></i>&nbsp; HTML5</span>
+                            <span class="badge badge-css"><i class="fab fa-css3-alt"></i>&nbsp; CSS3</span>
+                        </div>
+                        <h3 class="project-title">Portfolio Website</h3>
+                        <p class="project-description">
+                            This stunning portfolio website you're currently viewing! Features modern design,
+                            glassmorphism effects, smooth animations, and Firebase contact form integration.
+                        </p>
+                        <div class="project-tags">
+                            <span class="badge">HTML5</span>
+                            <span class="badge">CSS3</span>
+                            <span class="badge">JavaScript</span>
+                            <span class="badge">Firebase</span>
+                        </div>
+                        <div class="project-links">
+
+                            <a href="/" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                                <i class="fas fa-external-link-alt"></i>
+                                Live
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Web Projects -->
+                <div class="card card-glow project-card reveal" data-category="web">
+                    <div
+                        style="height: 200px; background: linear-gradient(135deg, rgba(227, 79, 38, 0.1), rgba(247, 223, 30, 0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <i class="fas fa-globe" style="font-size: 5rem; color: #e34f26;"></i>
+                    </div>
+                    <div class="project-content" style="padding: 0;">
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                            <span class="badge badge-html"><i class="fab fa-html5"></i>&nbsp; HTML5</span>
+                            <span class="badge badge-js"><i class="fab fa-js"></i>&nbsp; JavaScript</span>
+                        </div>
+                        <h3 class="project-title">Interactive Web Apps</h3>
+                        <p class="project-description">
+                            Collection of interactive web applications including games, utilities, and
+                            interactive UI components built with vanilla HTML, CSS, and JavaScript.
+                        </p>
+                        <div class="project-tags">
+                            <span class="badge">HTML5</span>
+                            <span class="badge">CSS3</span>
+                            <span class="badge">JavaScript</span>
+                      
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container">
+            <div class="card card-glow text-center reveal" style="padding: 4rem 2rem;">
+                <h2 class="mb-lg">
+                    Want to <span class="gradient-text">Collaborate?</span>
+                </h2>
+                <p class="text-secondary mb-xl" style="max-width: 500px; margin-left: auto; margin-right: auto;">
+                    I'm always open to discussing new projects and creative ideas. Let's create something amazing
+                    together!
+                </p>
+                <a href="/contact/" class="btn btn-primary">
+                    <i class="fas fa-handshake"></i>
+                    Let's Work Together
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    © 2026 Sandesh. All rights reserved.
+                </p>
+                <div class="footer-socials">
+                    <a href="https://github.com/CodeWithSandesh173" class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/sandesh-bhandari-57b46b275/" class="social-link"
+                        aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://x.com/sandesh123131" class="social-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/sandesh173_/" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script>
+        // Project filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projects = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.remove('btn-primary');
+                    b.classList.add('btn-secondary');
+                });
+                btn.classList.add('active');
+                btn.classList.remove('btn-secondary');
+                btn.classList.add('btn-primary');
+
+                const filter = btn.dataset.filter;
+
+                projects.forEach(project => {
+                    if (filter === 'all' || project.dataset.category.includes(filter)) {
+                        project.style.display = 'block';
+                        project.style.animation = 'fadeInUp 0.5s ease forwards';
+                    } else {
+                        project.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+    <script src="/js/firebase-config.js"></script>
+    <script src="/js/page-editor.js"></script>
+</body>
+
+</html>

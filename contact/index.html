@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get in touch with Sandesh. Let's discuss your project ideas and collaborate.">
+    <title>Contact | Sandesh</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="/assets/images/profile.png">
+
+    <style>
+        .login-required {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .login-required-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--accent-primary);
+        }
+
+        .user-bar {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            margin-bottom: 2rem;
+        }
+
+        .user-bar.show {
+            display: flex;
+        }
+
+        .user-bar-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-bar-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .verification-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .verification-warning.show {
+            display: block;
+        }
+
+        .verification-warning h4 {
+            color: var(--accent-warning);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid var(--accent-success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--accent-success);
+        }
+
+        /* Owner Inbox Styles */
+        .owner-inbox {
+            display: none;
+            margin-top: 3rem;
+        }
+
+        .inbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .inbox-message {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: all var(--transition-base);
+        }
+
+        .inbox-message:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .inbox-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .inbox-sender {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .inbox-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .inbox-email {
+            display: block;
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+        }
+
+        .inbox-date {
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+        }
+
+        .inbox-subject {
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .inbox-preview {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .inbox-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .inbox-btn {
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-md);
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: var(--glass-bg);
+            color: var(--text-secondary);
+            font-family: inherit;
+            text-decoration: none;
+            transition: all var(--transition-base);
+        }
+
+        .inbox-btn.reply:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .inbox-btn.delete:hover {
+            border-color: var(--accent-error);
+            color: var(--accent-error);
+        }
+
+        #noMessages {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-tertiary);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage">Message sent successfully!</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                &lt;Sandesh/&gt;
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/store/" class="nav-link">Store</a></li>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/about/" class="nav-link">About</a></li>
+                <li><a href="/projects/" class="nav-link">Projects</a></li>
+                <li><a href="/reviews/" class="nav-link">Reviews</a></li>
+                <li><a href="/contact/" class="nav-link active">Contact</a></li>
+                <li><a href="/login/" class="nav-link" id="loginNavLink">Login</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="section" style="padding-top: 120px;">
+        <div class="container">
+            <div class="text-center mb-2xl">
+                <h1 class="mb-md">
+                    Get In <span class="gradient-text">Touch</span>
+                </h1>
+                <p class="text-secondary" style="max-width: 600px; margin: 0 auto;">
+                    Have a project in mind or just want to chat? I'd love to hear from you!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <!-- Login Required Message -->
+            <div class="card login-required" id="loginRequired">
+                <div class="login-required-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h2 class="mb-md">Login Required</h2>
+                <p class="text-secondary mb-xl" style="max-width: 400px; margin-left: auto; margin-right: auto;">
+                    Please login or create an account to send me a message. This helps prevent spam and ensures I can
+                    respond to you.
+                </p>
+                <a href="/login/" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login / Sign Up
+                </a>
+            </div>
+
+            <!-- Contact Form (shown when logged in) -->
+            <div id="contactContent" style="display: none;">
+                <div class="contact-grid">
+                    <!-- Contact Info -->
+                    <div class="contact-info reveal">
+                        <h2 class="mb-lg">
+                            Let's Create Something <span class="gradient-text">Amazing</span>
+                        </h2>
+                        <p class="contact-text">
+                            Whether you have a project idea, a question, or just want to say hello,
+                            feel free to reach out. I'm always excited to connect with fellow developers
+                            and potential collaborators.
+                        </p>
+
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="contact-method-icon">
+                                    <i class="fas fa-user" style="color: var(--accent-primary);"></i>
+                                </div>
+                                <div>
+                                    <h4>Sandesh Bhandari</h4>
+                                    <p class="text-secondary">Full-Stack Developer</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-method">
+                                <div class="contact-method-icon">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--accent-secondary);"></i>
+                                </div>
+                                <div>
+                                    <h4>Location</h4>
+                                    <p class="text-secondary">Nepal</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-method">
+                                <div class="contact-method-icon">
+                                    <i class="fas fa-clock" style="color: var(--accent-tertiary);"></i>
+                                </div>
+                                <div>
+                                    <h4>Availability</h4>
+                                    <p class="text-secondary">Open for freelance projects</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="mt-xl">
+                            <h4 class="mb-md">Connect with me</h4>
+                            <div class="footer-socials">
+                                                   <a href="https://github.com/CodeWithSandesh173" class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/sandesh-bhandari-57b46b275/" class="social-link"
+                        aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://x.com/sandesh123131" class="social-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/sandesh173_/" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form-wrapper reveal">
+                        <!-- User Bar -->
+                        <div class="user-bar show" id="userBar">
+                            <div class="user-bar-info">
+                                <div class="user-bar-avatar" id="userAvatar">S</div>
+                                <div>
+                                    <strong id="userDisplayName">User</strong>
+                                    <p class="text-secondary" style="font-size: 0.85rem; margin: 0;"
+                                        id="userEmailDisplay">user@email.com</p>
+                                </div>
+                            </div>
+                            <button onclick="logout()" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </button>
+                        </div>
+
+                        <!-- Verification Warning -->
+                        <div class="verification-warning" id="verificationWarning">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Email Not Verified</h4>
+                            <p class="text-secondary">Please verify your email to send messages. Check your inbox for
+                                the verification link.</p>
+                            <button onclick="resendVerificationEmail()" class="btn btn-outline"
+                                style="margin-top: 1rem; padding: 0.5rem 1rem;">
+                                <i class="fas fa-redo"></i> Resend Verification
+                            </button>
+                        </div>
+
+                        <h3 class="mb-lg">Send me a message</h3>
+
+                        <!-- Contact Form -->
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" id="subject" name="subject" class="form-input"
+                                    placeholder="Project Inquiry" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea id="message" name="message" class="form-textarea"
+                                    placeholder="Tell me about your project..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%;" id="submitBtn">
+                                <i class="fas fa-paper-plane"></i>
+                                <span id="submitText">Send Message</span>
+                            </button>
+                        </form>
+
+                        <!-- Success Message -->
+                        <div class="success-message" id="successMessage">
+                            <div class="success-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <h3 class="mb-md">Message Sent!</h3>
+                            <p class="text-secondary mb-lg">
+                                Thank you for reaching out! I've received your message and will get back to you as soon
+                                as possible.
+                            </p>
+                            <button onclick="resetForm()" class="btn btn-secondary">
+                                <i class="fas fa-plus"></i>
+                                Send Another Message
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Owner Inbox (only visible to owner) -->
+    <section class="section owner-inbox" id="ownerInbox" style="padding-top: 0;">
+        <div class="container">
+            <div class="card card-glow" style="max-width: 800px; margin: 0 auto;">
+                <div class="inbox-header">
+                    <h3><i class="fas fa-inbox" style="color: var(--accent-primary);"></i> Your Inbox</h3>
+                    <span id="messageCount" class="text-secondary">0 messages</span>
+                </div>
+
+                <div id="noMessages">
+                    <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                    <p>No messages yet</p>
+                </div>
+
+                <div id="ownerMessagesList">
+                    <!-- Messages loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    © 2026 Sandesh. All rights reserved.
+                </p>
+                <div class="footer-socials">
+                    <a href="https://github.com/CodeWithSandesh173" class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/sandesh-bhandari-57b46b275/" class="social-link"
+                        aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://x.com/sandesh123131" class="social-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/sandesh173_/" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/firebase-config.js"></script>
+    <script src="/js/contact.js"></script>
+    <script src="/js/page-editor.js"></script>
+</body>
+
+</html>
